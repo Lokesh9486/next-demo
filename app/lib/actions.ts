@@ -17,7 +17,7 @@ const FormSchema = z.object({
  
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 export async function createInvoice(formData: FormData) {
-    try {
+    // try {
     const { customerId, amount, status } = CreateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -31,20 +31,20 @@ export async function createInvoice(formData: FormData) {
   `;
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
-  } catch (err) {
-    if (err instanceof ZodError ) {
-      return {
-        success: false,
-        errors: err.flatten().fieldErrors, // returns a nice object like { status: ["Expected..."], ... }
-      };
-    }
+//   } catch (err) {
+//     if (err instanceof ZodError ) {
+//       return {
+//         success: false,
+//         errors: err.flatten().fieldErrors, // returns a nice object like { status: ["Expected..."], ... }
+//       };
+//     }
 
-    // Generic fallback
-    return {
-      success: false,
-      errors: { _form: ['Unexpected error. Try again later.'] },
-    };
-  }
+//     // Generic fallback
+//     return {
+//       success: false,
+//       errors: { _form: ['Unexpected error. Try again later.'] },
+//     };
+//   }
 }
 
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
